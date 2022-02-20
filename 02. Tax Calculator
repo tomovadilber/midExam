@@ -1,0 +1,88 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+
+
+namespace firstProblemMidleExam
+{
+    internal class Program
+
+    {
+        static void Main(string[] args)
+
+        {
+
+            List<string> cars = Console.ReadLine().Split(">>", StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            //Console.WriteLine(String.Join(' ', cars));
+
+            //Console.WriteLine(cars.Count);
+
+            List<string> final = new List<string>(); 
+
+            foreach (string item in cars)
+            {
+                final.AddRange(item.Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                        .ToList()
+                         );
+            }
+
+            double finalTaxes = 0;
+
+            for (int i = 0; i < final.Count; i += 3)
+            {
+                if (final[i] == "family")
+                {
+                    double initialTax = 50.00;
+                    // -5 euro per year
+                    // + 12 euro for each 3000 km
+
+                    int km = int.Parse(final[i + 2]);
+                    int years = int.Parse(final[i + 1]);
+
+                    int familyTax = km / 3000 * 12 + (50 - years * 5);
+                    finalTaxes += familyTax;
+
+                    Console.WriteLine($"A {final[i]} car will pay {familyTax:f2} euros in taxes.");
+                }
+                else if (final[i] == "heavyDuty")
+                {
+                    int initialTax = 80;
+                    int km = int.Parse(final[i + 2]);
+                    int years = int.Parse(final[i + 1]);
+
+                    double heavyDutyTax = km / 9000 * 14 + (80 - years * 8);
+                    finalTaxes += heavyDutyTax;
+
+                    Console.WriteLine($"A {final[i]} car will pay {heavyDutyTax:f2} euros in taxes.");
+
+                }
+                else if (final[i] == "sports")
+                {
+                    int initialTax = 100;
+
+                    int km = int.Parse(final[i + 2]);
+                    int years = int.Parse(final[i + 1]);
+
+                    int sportsTax = km / 2000 * 18 + (100 - years * 9);
+                    finalTaxes += sportsTax;
+
+                    Console.WriteLine($"A {final[i]} car will pay {sportsTax:f2} euros in taxes.");
+                }
+                else if (final[i] != "family" && final[i]!= "heavyDuty" && final[i]!="sports")
+                {
+                    Console.WriteLine("Invalid car type.");
+
+                }
+                
+
+            }
+
+            //Console.WriteLine(7210 / 3000 * 12 + (50 - 3*5));
+
+            Console.WriteLine($"The National Revenue Agency will collect {finalTaxes:f2} euros in taxes.");
+
+        }
+    }
+}
