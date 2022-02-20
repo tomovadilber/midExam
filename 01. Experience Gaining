@@ -1,0 +1,60 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+
+
+namespace firstProblemMidleExam
+{
+    internal class Program
+
+    {
+        static void Main(string[] args)
+
+        {
+
+            //int[] numbers = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+
+
+            //List<int> test = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+
+            double experienceNeeded = double.Parse(Console.ReadLine());
+            double battle = double.Parse(Console.ReadLine());
+
+            int battlesCount = 0;
+
+            double sum = 0;
+
+            for (int i = 0; i < battle; i++)
+            {
+                double current = double.Parse(Console.ReadLine());
+                battlesCount++;
+                if (battlesCount == 3)
+                {
+                    current *= 1.15;
+                }
+                else if (battlesCount == 5)
+                {
+                    current *= 0.90;
+                }
+                else if (battlesCount == 15)
+                {
+                    current *= 1.05;
+                }
+                sum += current;
+
+                if (sum >= experienceNeeded)
+                {
+                    Console.WriteLine($"Player successfully collected his needed experience for {battlesCount} battles.");
+                    return;
+                }
+            }
+
+            if (sum < experienceNeeded)
+            {
+                Console.WriteLine($"Player was not able to collect the needed experience, {experienceNeeded - sum:f2} more needed.");
+            }
+            
+        }
+    }
+}
