@@ -1,0 +1,81 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+
+
+namespace firstProblemMidleExam
+{
+    internal class Program
+
+    {
+        static void Main(string[] args)
+
+        {
+
+            List<string> commands = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            
+
+            List<string> messages = new List<string>();
+
+
+            while (commands[0] != "end")
+            {
+                
+                if (commands[0] == "Chat")
+                {
+                    messages.Add(commands[1]);
+                }
+                else if (commands[0] == "Delete")
+                {
+                    for (int i = 0; i < messages.Count; i++)
+                    {
+                        if (messages[i] == commands[1])
+                        {
+                            messages.RemoveAt(i);
+                        }
+                    }
+                }
+                else if (commands[0] == "Edit")
+                {
+                    for (int i = 0; i < messages.Count; i++)
+                    {
+                        if (messages[i] == commands[1])
+                        {
+                            messages[i] = commands[2];
+                        }
+                    }
+                }
+                else if (commands[0] == "Pin")
+                {
+                    for (int i = 0; i < messages.Count; i++)
+                    {
+                        if (messages[i] == commands[1])
+                        {
+                            string toBeMoved = messages[i];
+                            messages.RemoveAt(i);
+                            messages.Add(toBeMoved);
+                        }
+                    }
+                }
+                else if (commands[0] == "Spam")
+                {
+                    for (int i = 1; i < commands.Count; i++)
+                    {
+                        messages.Add(commands[i]);
+                    }
+                }
+
+
+                
+                commands = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+
+            for (int i = 0; i < messages.Count; i++)
+            {
+                Console.WriteLine(messages[i]);
+            }
+        }
+    }
+}
